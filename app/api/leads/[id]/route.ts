@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
 import { leadSchema } from "@/lib/validators";
 
-export async function PATCH(request: Request, { params }: { params: { id: string } }) {
+export async function PATCH(request: Request, { params }: any) {
   const { id } = params;
   const body = await request.json();
   const parsed = leadSchema.partial().safeParse(body);
@@ -18,7 +18,7 @@ export async function PATCH(request: Request, { params }: { params: { id: string
   return NextResponse.json({ data: lead });
 }
 
-export async function DELETE(_request: Request, { params }: { params: { id: string } }) {
+export async function DELETE(_request: Request, { params }: any) {
   const { id } = params;
   await prisma.lead.delete({ where: { id } });
   return NextResponse.json({ ok: true });
